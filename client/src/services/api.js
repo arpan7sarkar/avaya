@@ -31,3 +31,35 @@ export const getNearestPolice = async (lat, lng) => {
   const { data } = await api.get('/api/police/nearest', { params: { lat, lng } });
   return data;
 };
+
+// ── Community API ─────────────────────────────────────────────
+
+export const getCommunityPosts = async (page = 1, limit = 10, category = 'all') => {
+  const { data } = await api.get('/api/community/posts', { params: { page, limit, category } });
+  return data;
+};
+
+export const createPost = async (postData) => {
+  const { data } = await api.post('/api/community/posts', postData);
+  return data;
+};
+
+export const addComment = async (postId, commentData) => {
+  const { data } = await api.post(`/api/community/posts/${postId}/comments`, commentData);
+  return data;
+};
+
+export const toggleLike = async (postId, clerkUserId) => {
+  const { data } = await api.post(`/api/community/posts/${postId}/like`, { clerkUserId });
+  return data;
+};
+
+export const sendSOSAlert = async (sosData) => {
+  const { data } = await api.post('/api/community/sos-alert', sosData);
+  return data;
+};
+
+export const getPostById = async (id) => {
+  const { data } = await api.get(`/api/community/posts/${id}`);
+  return data;
+};

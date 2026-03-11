@@ -9,6 +9,7 @@ import AboutPage from './pages/AboutPage';
 import SafetyTipsPage from './pages/SafetyTipsPage';
 import HowItWorksPage from './pages/HowItWorksPage';
 import ContactPage from './pages/ContactPage';
+import CommunityPage from './pages/CommunityPage';
 import { Show } from '@clerk/react';
 import SignInPage from './pages/SignInPage';
 import SignUpPage from './pages/SignUpPage';
@@ -45,6 +46,7 @@ export default function App() {
           } />
           <Route path="/about" element={<SiteLayout><AboutPage /></SiteLayout>} />
           <Route path="/safety-tips" element={<SiteLayout><SafetyTipsPage /></SiteLayout>} />
+          <Route path="/community" element={<SiteLayout><CommunityPage /></SiteLayout>} />
           <Route path="/how-it-works" element={<SiteLayout><HowItWorksPage /></SiteLayout>} />
           <Route path="/contact" element={<SiteLayout><ContactPage /></SiteLayout>} />
           <Route path="/sign-in/*" element={<SignInPage />} />

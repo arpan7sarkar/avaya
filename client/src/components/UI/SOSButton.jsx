@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { Shield } from 'lucide-react';
-import { getNearestPolice } from '../../services/api';
+import { getNearestPolice, sendSOSAlert } from '../../services/api';
 import { useAvayaStore } from '../../store/useAvayaStore';
+import { useUser } from '@clerk/react';
 
 export default function SOSButton() {
   const userLocation = useAvayaStore((s) => s.userLocation);
   const setSosResult = useAvayaStore((s) => s.setSosResult);
   const setSosModalOpen = useAvayaStore((s) => s.setSosModalOpen);
   const [loading, setLoading] = useState(false);
+  const { user } = useUser();
 
   const handleSOS = async () => {
     if (loading || !userLocation) return;
@@ -16,6 +18,18 @@ export default function SOSButton() {
       const result = await getNearestPolice(userLocation.lat, userLocation.lng);
       setSosResult(result);
       setSosModalOpen(true);
+
+      // Post SOS to community feed
+      if (user) {
+        sendSOSAlert({
+          clerkUserId: user.id,
+          authorName: user.fullName || user.firstName || 'A User',
+          authorAvatar: user.imageUrl || null,
+          lat: userLocation.lat,
+          lng: userLocation.lng,
+          address: `Lat: ${userLocation.lat.toFixed(4)}, Lng: ${userLocation.lng.toFixed(4)}`,
+        }).catch((e) => console.error('SOS alert post failed:', e.message));
+      }
     } catch {
       setSosResult({
         name: 'Local Police Station',
