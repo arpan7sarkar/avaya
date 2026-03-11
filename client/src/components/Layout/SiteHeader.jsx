@@ -6,6 +6,7 @@ import { Show, UserButton, useUser } from '@clerk/react';
 const navLinks = [
   { to: '/', label: 'Home' },
   { to: '/map', label: 'Map' },
+  { to: '/community', label: 'Community' },
   { to: '/safety-tips', label: 'Safety Tips' },
   { to: '/about', label: 'About' },
   { to: '/contact', label: 'Contact' },
